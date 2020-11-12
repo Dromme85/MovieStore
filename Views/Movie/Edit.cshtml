@@ -1,0 +1,63 @@
+﻿@model MovieStore.Models.Movie
+
+@{
+	ViewBag.Title = "Edit Movie";
+}
+<br />
+<h2 class="mt-5">@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	<div class="container">
+		<form>
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+			@Html.HiddenFor(model => model.ID)
+			<div class="form-group row">
+				@Html.LabelFor(model => model.Title, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Title, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group row">
+				@Html.LabelFor(model => model.Director, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Director, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Director, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group row">
+				@Html.LabelFor(model => model.ReleaseYear, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.ReleaseYear, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.ReleaseYear, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group row">
+				@Html.LabelFor(model => model.Price, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Price, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group row">
+				@Html.LabelFor(model => model.ImageURL, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.ImageURL, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.ImageURL, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="offset-md-2 col-md-10 p-1">
+					@Html.ActionLink("Cancel", "Details", new { MovieId = Model.ID }, new { @class = "btn btn-secondary" })
+					<input type="submit" value="Save" class="btn btn-primary" />
+				</div>
+			</div>
+		</form>
+	</div>
+}

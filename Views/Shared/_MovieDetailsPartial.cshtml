@@ -1,0 +1,44 @@
+﻿@model MovieStore.Models.Movie
+
+<div class="offset-sm-0 col-sm-12 offset-md-2 col-md-8 offset-lg-0 col-lg-6 offset-xl-0 col-xl-4 mt-4">
+	<div class="card shadow pb-2" style="background-color: azure">
+		<h4 class="text-center p-2">@Html.DisplayFor(model => model.Title)</h4>
+		<div class="row mr-0">
+			<div class="col-3 p-1">
+			@if (Model.ImageURL != "")
+			{
+				<img src=@Html.DisplayFor(model => model.ImageURL) alt="Movie Poster" class="img-fluid rounded shadow" />
+
+			}
+			</div>
+			<div class="col-9">
+				<dl class="row m-0">
+					<dt class="col-5 text-right">
+						@Html.DisplayNameFor(model => model.Director)
+					</dt>
+					<dd class="col-7 text-left">
+						@Html.DisplayFor(model => model.Director)
+					</dd>
+				</dl>
+				<dl class="row m-0">
+					<dt class="col-5 text-right text-nowrap">
+						@Html.DisplayNameFor(model => model.ReleaseYear)
+					</dt>
+					<dd class="col-7 text-left">
+						@Html.DisplayFor(model => model.ReleaseYear)
+					</dd>
+				</dl>
+				<dl class="row m-0">
+					<dt class="col-5 text-right">
+						@Html.DisplayNameFor(model => model.Price)
+					</dt>
+					<dd class="col-7 text-left text-danger">
+						@Html.DisplayFor(model => model.Price)
+					</dd>
+				</dl>
+				@Html.ActionLink("Add to Cart", "AddToCart", "Movie", new { MovieId = Model.ID }, new { @class = "btn btn-success float-right m-1" })
+				@Html.ActionLink("Details", "Details", "Movie", new { MovieId = Model.ID }, new { @class = "btn btn-primary float-right m-1" })
+			</div>
+		</div>
+	</div>
+</div>

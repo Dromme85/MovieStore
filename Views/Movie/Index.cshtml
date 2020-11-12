@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MovieStore.Models.Movie>
+
+@{
+	ViewBag.Title = "Movies";
+}
+
+<br />
+<div class="jumbotron">
+	<h2>Movies</h2>
+	<div class="container-fluid">
+		<div class="row">
+			@foreach (var movie in Model)
+			{
+				@Html.Partial("_MovieDetailsPartial", movie)
+			}
+		</div>
+	</div>
+</div>
+

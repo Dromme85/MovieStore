@@ -1,0 +1,57 @@
+﻿@using MovieStore.Models
+
+@{
+	var cart = (List<CartViewModel>)Session["CartItems"];
+	int numItems = 0;
+	if (cart != null)
+	{
+		foreach (var item in cart)
+		{
+			numItems += item.Amount;
+		}
+	}
+}
+
+
+<ul class="nav navbar-nav navbar-right mr-0">
+	<li class="nav-item dropdown">
+		<a href=@Url.Action("Index", "Home") class="nav-link dropdown-toggle active" data-toggle="dropdown">
+				<span class="fas fa-shopping-cart"></span> Shopping Cart (@numItems)
+		</a>
+		<div class="dropdown-menu dropdown-menu-right">
+			@if (cart != null)
+			{
+				foreach (var item in cart)
+				{
+					<table class="dropdown-item">
+						<tr class="row" style="width: 400px !important;">
+							<td class="col-9">@item.Movie.Title, @item.Movie.Price</td>
+							<td class="col-3 text-right">
+								<a href=@Url.Action("RemoveFromCart", "Movie", new { MovieId = @item.Movie.ID }) class="text-right">
+									<i class="fas fa-minus-circle text-danger"></i>
+								</a>
+								@item.Amount
+								<a href=@Url.Action("AddToCart", "Movie", new { MovieId = @item.Movie.ID, ctr = "ViewCart", act = "Order" }) class="text-right">
+									<i class="fas fa-plus-circle text-success"></i>
+								</a>
+							</td>
+						</tr>
+					</table>
+				}
+				if (numItems > 0)
+				{
+					<div class="dropdown-divider"></div>
+					<a href="@Url.Action("ViewCart", "Order")" class="dropdown-item text-right">View Cart</a>
+				}
+				else
+				{
+					<div class="dropdown-item">Cart is empty</div>
+				}
+			}
+			else
+			{
+				<div class="dropdown-item">Cart is empty</div>
+			}
+		</div>
+	</li>
+</ul>

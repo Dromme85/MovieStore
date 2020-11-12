@@ -1,0 +1,99 @@
+﻿@model MovieStore.Models.Customer
+
+@{
+	ViewBag.Title = "Add Customer Details";
+}
+
+<br />
+<h2 class="mt-5">@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	<div class="container">
+		<form>
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+			@if (Model != null)
+			{
+				@Html.HiddenFor(model => model.ID)
+			}
+			<div class="form-group row">
+				@Html.LabelFor(model => model.FirstName, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.FirstName, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-group row">
+				@Html.LabelFor(model => model.LastName, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.LastName, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-group row">
+				@Html.LabelFor(model => model.EmailAddress, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.EmailAddress, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-group row">
+				@Html.LabelFor(model => model.PhoneNo, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.PhoneNo, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<hr />
+			<div class="form-group row">
+				@Html.LabelFor(model => model.BillingAddress, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.BillingAddress, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.BillingAddress, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-group row">
+				@Html.LabelFor(model => model.BillingZip, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.BillingZip, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.BillingZip, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-group row">
+				@Html.LabelFor(model => model.BillingCity, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.BillingCity, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.BillingCity, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<hr />
+			<div class="form-group row">
+				@Html.LabelFor(model => model.DeliveryAddress, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.DeliveryAddress, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.DeliveryAddress, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-group row">
+				@Html.LabelFor(model => model.DeliveryZip, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.DeliveryZip, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.DeliveryZip, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-group row">
+				@Html.LabelFor(model => model.DeliveryCity, new { @class = "col-md-2 col-form-label text-right" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.DeliveryCity, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.DeliveryCity, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="offset-md-2 col-md-10 p-1">
+					<input type="submit" value="Update" class="btn btn-primary" />
+				</div>
+			</div>
+		</form>
+	</div>
+}

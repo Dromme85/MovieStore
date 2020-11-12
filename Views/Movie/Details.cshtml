@@ -1,0 +1,50 @@
+﻿@model MovieStore.Models.Movie
+
+@{
+	ViewBag.Title = "Details";
+}
+
+<br />
+<div class="jumbotron">
+	<h2 class="text-center">@Html.DisplayFor(model => model.Title)</h2>
+	<hr />
+	<div class="container">
+		<div class="row">
+			<div class="offset-1 col-3 p-1">
+			@if (Model.ImageURL != "")
+			{
+				<img src="@Html.DisplayFor(model => model.ImageURL)" alt="Movie Poster" class="img-fluid rounded shadow" />
+			}
+			</div>
+			<div class="col-7">
+				<dl class="row m-0">
+					<dt class="col-5 text-right">
+						@Html.DisplayNameFor(model => model.Director)
+					</dt>
+					<dd class="col-7 text-left">
+						@Html.DisplayFor(model => model.Director)
+					</dd>
+				</dl>
+				<dl class="row m-0">
+					<dt class="col-5 text-right text-nowrap">
+						@Html.DisplayNameFor(model => model.ReleaseYear)
+					</dt>
+					<dd class="col-7 text-left">
+						@Html.DisplayFor(model => model.ReleaseYear)
+					</dd>
+				</dl>
+				<dl class="row m-0">
+					<dt class="col-5 text-right">
+						@Html.DisplayNameFor(model => model.Price)
+					</dt>
+					<dd class="col-7 text-left">
+						@Html.DisplayFor(model => model.Price)
+					</dd>
+				</dl>
+				@* TODO: Add functionality to "Add to Cart" button *@
+				@Html.ActionLink("Add to Cart", "AddToCart", "Movie", new { MovieId = Model.ID }, new { @class = "btn btn-success float-right m-1" })
+				@Html.ActionLink("Edit Movie", "Edit", new { MovieId = Model.ID }, new { @class = "btn btn-primary float-right m-1" })
+			</div>
+		</div>
+	</div>
+</div>
