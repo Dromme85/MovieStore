@@ -10,74 +10,74 @@ using System.Web.Mvc;
 
 namespace MovieStore.Controllers
 {
-    public class MovieController : Controller
-    {
-        private ApplicationDbContext db = new ApplicationDbContext();
-        List<CartViewModel> cartItems = new List<CartViewModel>();
-        // GET: Movie
-        public ActionResult Index()
-        {
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
-            
-            return View(db.Movies.ToList());
-        }
+	public class MovieController : Controller
+	{
+		private ApplicationDbContext db = new ApplicationDbContext();
+		List<CartViewModel> cartItems = new List<CartViewModel>();
+		// GET: Movie
+		public ActionResult Index()
+		{
+			Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
+			
+			return View(db.Movies.ToList());
+		}
 
-        public ActionResult Details(int? movieid)
-        {
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
+		public ActionResult Details(int? movieid)
+		{
+			Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
 
-            if (movieid == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			if (movieid == null)
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Movie movie = db.Movies.Find(movieid);
-            if (movie == null)
-                return HttpNotFound();
+			Movie movie = db.Movies.Find(movieid);
+			if (movie == null)
+				return HttpNotFound();
 
-            return View(movie);
-        }
+			return View(movie);
+		}
 
 		public ActionResult Create()
 		{
-            return View();
+			return View();
 		}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,Director,ReleaseYear,Price,ImageURL")] Movie movie)
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create([Bind(Include = "ID,Title,Director,ReleaseYear,Price,ImageURL")] Movie movie)
 		{
-            if (ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
-                db.Movies.Add(movie);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+				db.Movies.Add(movie);
+				db.SaveChanges();
+				return RedirectToAction("Index");
 			}
 
-            return View(movie);
+			return View(movie);
 		}
 
-        public ActionResult Edit(int? movieid)
+		public ActionResult Edit(int? movieid)
 		{
-            if (movieid == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			if (movieid == null)
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Movie movie = db.Movies.Find(movieid);
-            if (movie == null)
-                return HttpNotFound();
+			Movie movie = db.Movies.Find(movieid);
+			if (movie == null)
+				return HttpNotFound();
 
-            return View(movie);
+			return View(movie);
 		}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,Director,ReleaseYear,Price,ImageURL")] Movie movie)
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit([Bind(Include = "ID,Title,Director,ReleaseYear,Price,ImageURL")] Movie movie)
 		{
-            if (ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
-                db.Entry(movie).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Details", new { MovieId = movie.ID });
+				db.Entry(movie).State = EntityState.Modified;
+				db.SaveChanges();
+				return RedirectToAction("Details", new { MovieId = movie.ID });
 			}
-            return View(movie);
+			return View(movie);
 		}
 
 		public ActionResult AddToCart([Bind(Prefix = "movieID")] int movieID, string Ctr, string Act)

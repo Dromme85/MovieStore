@@ -7,24 +7,24 @@ using System.Web.Mvc;
 
 namespace MovieStore.Controllers
 {
-    public class OrderController : Controller
-    {
-        // GET: Order
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult ViewCart()
+	public class OrderController : Controller
+	{
+		// GET: Order
+		public ActionResult Index()
 		{
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
-
-            return View();
+			return View();
 		}
 
-        public ActionResult PlaceOrder()
+		public ActionResult ViewCart()
 		{
-            return View();
+			Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
+
+			return View();
 		}
-    }
+
+		public ActionResult PlaceOrder()
+		{
+			return View();
+		}
+	}
 }
