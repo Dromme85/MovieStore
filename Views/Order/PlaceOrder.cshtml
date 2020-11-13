@@ -1,14 +1,14 @@
 @using MovieStore.Models
+@using Microsoft.AspNet.Identity
 
-@{
-	ViewBag.Title = "Place Order";
-	var cart = (List<CartViewModel>)Session["CartItems"];
-	decimal totalAmount = 49.90m;
-	foreach (var item in cart)
-	{
-		totalAmount += item.Movie.Price * item.Amount;
-	}
-}
+@{ ViewBag.Title = "Place Order";
+				var cart = (List<CartViewModel>)Session["CartItems"];
+				decimal totalAmount = 49.90m;
+				foreach (var item in cart)
+				{
+					totalAmount += item.Movie.Price * item.Amount;
+				}
+				var uid = User.Identity.GetUserId(); }
 
 <br />
 <h2 class="offset-2 mt-5">@ViewBag.Title</h2>
@@ -24,7 +24,6 @@
 	{
 <tr>
 	<td>
-		@*@Html.ActionLink(@item.Movie.Title, "Details", "Movie", new { MovieId = @item.Movie.ID }, new { title = "Click for movie details" })*@
 		@item.Movie.Title
 	</td>
 	<td>
@@ -36,7 +35,8 @@
 	<td>
 		<div class="text-nowrap">@(item.Movie.Price * item.Amount) kr</div>
 	</td>
-</tr>}
+</tr>
+}
 	<tr>
 		<td>Delivery to your door</td>
 		<td></td>
@@ -50,10 +50,13 @@
 	</tr>
 </table>
 <hr />
-@* TODO: Add customer details partial *@
-<div>Customer details follow</div>
+@* TODO: Check if there's a user logged in,
+	then check if that use have a customerId *@
+<h2 class="offset-2">Delivery Details</h2>
+@{ Html.RenderAction("CustomerDetailsPartial", "Customer", new { userid = uid }); }
 <hr />
 <div class="offset-md-7 offset-3">
 	@Html.ActionLink("Continue Shopping", "Index", "Movie", null, new { @class = "btn btn-primary mr-3" })
-	@Html.ActionLink("Place Order", "PlaceOrder", "Order", null, new { @class = "btn btn-success" })
+	@* TODO: Create a OrderSuccess action and view for Confirm Order *@
+	@Html.ActionLink("Confirm Order", "PlaceOrder", "Order", null, new { @class = "btn btn-success" })
 </div>

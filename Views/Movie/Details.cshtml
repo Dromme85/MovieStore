@@ -1,4 +1,4 @@
-﻿@model MovieStore.Models.Movie
+@model MovieStore.Models.Movie
 
 @{
 	ViewBag.Title = "Details";
@@ -41,7 +41,6 @@
 						@Html.DisplayFor(model => model.Price)
 					</dd>
 				</dl>
-				@* TODO: Add functionality to "Add to Cart" button *@
 				@Html.ActionLink("Add to Cart", "AddToCart", "Movie", new { MovieId = Model.ID }, new { @class = "btn btn-success float-right m-1" })
 				@Html.ActionLink("Edit Movie", "Edit", new { MovieId = Model.ID }, new { @class = "btn btn-primary float-right m-1" })
 			</div>

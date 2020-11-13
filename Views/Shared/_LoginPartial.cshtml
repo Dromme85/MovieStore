@@ -1,5 +1,9 @@
 @using Microsoft.AspNet.Identity
 
+@{
+	var uid = User.Identity.GetUserId();
+}
+
 @if (Request.IsAuthenticated)
 {
 	using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
@@ -20,7 +24,7 @@
 					</div>
 					<div class="dropdown-item">
 						@* TODO: Attach userid to the customer details link *@
-						<a href=@Url.Action("AddCustomerDetails", "Customer") class="nav-link text-dark text-right">
+						<a href=@Url.Action("AddCustomerDetails", "Customer", new { userId = uid }) class="nav-link text-dark text-right">
 							Manage Customer
 						</a>
 					</div>

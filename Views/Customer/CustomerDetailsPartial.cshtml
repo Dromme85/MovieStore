@@ -1,0 +1,55 @@
+@using Microsoft.AspNet.Identity
+@model MovieStore.Models.Customer
+
+<table class="table offset-md-0 offset-lg-2 col-md-12 col-lg-8">
+	<tr>
+		<td class="col-4 text-right font-weight-bold">Name</td>
+		<td class="col-8">@Model.FirstName @Model.LastName</td>
+	</tr>
+	<tr>
+		<td class="text-right font-weight-bold">Email</td>
+		<td>@Model.EmailAddress</td>
+	</tr>
+	<tr>
+		<td class="text-right font-weight-bold">Phone Number</td>
+		<td>@Model.PhoneNo</td>
+	</tr>
+	<tr>
+		<td class="text-right font-weight-bold">Address</td>
+		<td>@Model.BillingAddress</td>
+	</tr>
+
+	<tr>
+		<td class="text-right font-weight-bold">Zip Code</td>
+		<td>@Model.BillingZip</td>
+	</tr>
+
+	<tr>
+		<td class="text-right font-weight-bold">City</td>
+		<td>@Model.BillingCity</td>
+	</tr>
+	@if (Model.BillingAddress != Model.DeliveryAddress)
+	{
+	<tr>
+		<td colspan="2" class="font-weight-bold">Delivery Address</td>
+	</tr>
+	<tr>
+		<td class="text-right font-weight-bold">Delivery Address</td>
+		<td>@Model.DeliveryAddress</td>
+	</tr>
+
+	<tr>
+		<td class="text-right font-weight-bold">Delivery Zip Code</td>
+		<td>@Model.DeliveryZip</td>
+	</tr>
+
+	<tr>
+		<td class="text-right font-weight-bold">Delivery City</td>
+		<td>@Model.DeliveryCity</td>
+	</tr>
+	}
+</table>
+
+<div class="offset-md-7 offset-3">
+	@Html.ActionLink("Change Delivery Details", "AddCustomerDetails", "Customer", new { userId = User.Identity.GetUserId() }, new { @class = "btn btn-warning mr-3" })
+</div>

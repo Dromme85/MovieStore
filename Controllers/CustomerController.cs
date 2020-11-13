@@ -1,6 +1,7 @@
-﻿using MovieStore.Models;
+using MovieStore.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,14 +17,17 @@ namespace MovieStore.Controllers
 			return View();
 		}
 
-		public ActionResult AddCustomerDetails(int? customerid)
+		public ActionResult AddCustomerDetails(string userId)
 		{
-			if (customerid == null)
+			if (userId == null)
 				return View();
 
-			Customer customer = db.Customers.Find(customerid);
+			ApplicationUser user = db.Users.Find(userId);
+			Customer customer = db.Customers
+				.Where(m => m.EmailAddress == user.Email).FirstOrDefault();
 			if (customer == null)
-				return HttpNotFound();
+				// If theres no user with that email address, create new
+				return View();
 
 			return View(customer);
 		}
@@ -36,14 +40,32 @@ namespace MovieStore.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				//if (customer.UserID == 0) customer.UserID = 0;
-				db.Customers.Add(customer);
+				if (customer.ID <= 0)
+					db.Customers.Add(customer);
+				else
+					db.Entry(customer).State = EntityState.Modified;
 				db.SaveChanges();
 				// TODO: Change redirect to view customer details?
 				return RedirectToAction("Index", "Home");
 			}
 
 			return View(customer);
+		}
+
+		[ChildActionOnly]
+		public ActionResult CustomerDetailsPartial(string userId)
+		{
+			if (userId == null)
+				return PartialView();
+
+			ApplicationUser user = db.Users.Find(userId);
+			Customer customer = db.Customers
+				.Where(m => m.EmailAddress == user.Email).FirstOrDefault();
+			if (customer == null)
+				// If theres no user with that email address, create new
+				return PartialView();
+
+			return PartialView(customer);
 		}
 	}
 }
