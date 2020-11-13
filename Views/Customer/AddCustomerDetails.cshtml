@@ -1,12 +1,12 @@
-﻿@model MovieStore.Models.Customer
+@model MovieStore.Models.Customer
 
 @{
 	ViewBag.Title = "Add Customer Details";
 }
 
 <br />
-<h2 class="mt-5">@ViewBag.Title</h2>
-
+<h2 class="offset-2 mt-5">@ViewBag.Title</h2>
+<hr />
 @using (Html.BeginForm())
 {
 	@Html.AntiForgeryToken()

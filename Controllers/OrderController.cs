@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -24,6 +24,8 @@ namespace MovieStore.Controllers
 
 		public ActionResult PlaceOrder()
 		{
+			Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
+
 			return View();
 		}
 	}

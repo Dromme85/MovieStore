@@ -1,7 +1,59 @@
-﻿
+@using MovieStore.Models
+
 @{
-    ViewBag.Title = "Place Order";
+	ViewBag.Title = "Place Order";
+	var cart = (List<CartViewModel>)Session["CartItems"];
+	decimal totalAmount = 49.90m;
+	foreach (var item in cart)
+	{
+		totalAmount += item.Movie.Price * item.Amount;
+	}
 }
 
-<h2>Place Order</h2>
+<br />
+<h2 class="offset-2 mt-5">@ViewBag.Title</h2>
 
+<table class="table offset-md-0 offset-lg-2 col-md-12 col-lg-8">
+	<tr>
+		<th class="col-7">Title</th>
+		<th class="col-2">Price</th>
+		<th class="col-1 text-right pr-5">Amount</th>
+		<th class="col-2">Total</th>
+	</tr>
+	@foreach (var item in cart)
+	{
+<tr>
+	<td>
+		@*@Html.ActionLink(@item.Movie.Title, "Details", "Movie", new { MovieId = @item.Movie.ID }, new { title = "Click for movie details" })*@
+		@item.Movie.Title
+	</td>
+	<td>
+		<div class="text-nowrap">@Html.DisplayFor(movie => item.Movie.Price)</div>
+	</td>
+	<td class="text-right pr-5">
+		@item.Amount
+	</td>
+	<td>
+		<div class="text-nowrap">@(item.Movie.Price * item.Amount) kr</div>
+	</td>
+</tr>}
+	<tr>
+		<td>Delivery to your door</td>
+		<td></td>
+		<td class="text-right pr-5">1</td>
+		<td>49,90 kr</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td colspan="2" class="text-right pr-5 font-weight-bold">Total Amount</td>
+		<td class="font-weight-bold text-nowrap">@totalAmount kr</td>
+	</tr>
+</table>
+<hr />
+@* TODO: Add customer details partial *@
+<div>Customer details follow</div>
+<hr />
+<div class="offset-md-7 offset-3">
+	@Html.ActionLink("Continue Shopping", "Index", "Movie", null, new { @class = "btn btn-primary mr-3" })
+	@Html.ActionLink("Place Order", "PlaceOrder", "Order", null, new { @class = "btn btn-success" })
+</div>

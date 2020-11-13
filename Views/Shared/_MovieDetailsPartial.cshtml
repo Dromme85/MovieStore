@@ -1,8 +1,8 @@
-﻿@model MovieStore.Models.Movie
+@model MovieStore.Models.Movie
 
 <div class="offset-sm-0 col-sm-12 offset-md-2 col-md-8 offset-lg-0 col-lg-6 offset-xl-0 col-xl-4 mt-4">
 	<div class="card shadow pb-2" style="background-color: azure">
-		<h4 class="text-center p-2">@Html.DisplayFor(model => model.Title)</h4>
+		<h4 class="text-center p-2 rounded-top" style="background-color:palegreen">@Html.DisplayFor(model => model.Title)</h4>
 		<div class="row mr-0">
 			<div class="col-3 p-1">
 			@if (Model.ImageURL != "")

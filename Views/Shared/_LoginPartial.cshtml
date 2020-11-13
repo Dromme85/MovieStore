@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity
 
 @if (Request.IsAuthenticated)
 {
@@ -14,18 +14,19 @@
 				</a>
 				<div class="dropdown-menu dropdown-menu-right">
 					<div class="dropdown-item">
-						<a href=@Url.Action("Index", "Manage") class="text-right">
+						<a href=@Url.Action("Index", "Manage") class="nav-link text-dark text-right">
 							Manage Account
 						</a>
 					</div>
 					<div class="dropdown-item">
-						<a href=@Url.Action("AddCustomerDetails", "Customer") class="text-right">
+						@* TODO: Attach userid to the customer details link *@
+						<a href=@Url.Action("AddCustomerDetails", "Customer") class="nav-link text-dark text-right">
 							Manage Customer
 						</a>
 					</div>
 					<div class="dropdown-divider"></div>
 					<div class="dropdown-item">
-						<a href="javascript:document.getElementById('logoutForm').submit()" class="text-right">Log off</a>
+						<a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link text-dark text-right">Log off</a>
 					</div>
 					</div>
 				</li>

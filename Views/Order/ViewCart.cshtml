@@ -1,18 +1,40 @@
-﻿@using MovieStore.Models
+@using MovieStore.Models
 
 @{
 	ViewBag.Title = "Cart";
 	var cart = (List<CartViewModel>)Session["CartItems"];
-	decimal totalAmount = 49.90m;
-	foreach (var item in cart)
-	{
-		totalAmount += item.Movie.Price * item.Amount;
-	}
 }
-<br />
-<h2 class="mt-5 offset-2">Cart</h2>
+<script>
+	function addMovie(movieid) {
+		$.ajax({
+			url: "/Movie/AddToCart",
+			data: { MovieID: movieid },
+			success: function () {
+				$(document.body).load(location.href, function () {
+					// Toggle the dropdowns or they will stop working
+					$('.dropdown-toggle').dropdown();
+				});
+			}
+		});
+	}
+	function removeMovie(movieid) {
+		$.ajax({
+			url: "/Movie/RemoveFromCart",
+			data: { MovieID: movieid },
+			success: function () {
+				$(document.body).load(location.href, function () {
+					// Toggle the dropdowns or they will stop working
+					$('.dropdown-toggle').dropdown();
+				});
+			}
+		});
+	}
+</script>
 
-<table class="table offset-2 col-8">
+<br />
+<h2 class="offset-2 mt-5">@ViewBag.Title</h2>
+
+<table class="table offset-md-0 offset-lg-2 col-md-12 col-lg-8">
 	<tr>
 		<th>Title</th>
 		<th>Price</th>
@@ -28,26 +50,16 @@
 			@Html.DisplayFor(movie => item.Movie.Price)
 		</td>
 		<td>
-			<a href=@Url.Action("RemoveFromCart", "Movie", new { MovieId = @item.Movie.ID })>
+			<a href="#" onclick="removeMovie(@item.Movie.ID)">
 				<i class="fas fa-minus-circle text-danger"></i>
 			</a>
 			@item.Amount
-			<a href=@Url.Action("AddToCart", "Movie", new { MovieId = @item.Movie.ID, ctr = "ViewCart", act = "Order" })>
+			<a href="#" onclick="addMovie(@item.Movie.ID)">
 				<i class="fas fa-plus-circle text-success"></i>
 			</a>
 		</td>
 	</tr>
 	}
-	<tr>
-		<td>Delivery to your door</td>
-		<td>49,90 kr</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td class="text-right font-weight-bold">Total Amount</td>
-		<td class="font-weight-bold text-nowrap">@totalAmount kr</td>
-		<td></td>
-	</tr>
 </table>
 <div class="offset-md-7 offset-3">
 	@Html.ActionLink("Continue Shopping", "Index", "Movie", null, new { @class = "btn btn-primary mr-3" })

@@ -1,4 +1,4 @@
-﻿using MovieStore.Models;
+using MovieStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -80,7 +80,7 @@ namespace MovieStore.Controllers
 			return View(movie);
 		}
 
-		public ActionResult AddToCart([Bind(Prefix = "movieID")] int movieID, string Ctr, string Act)
+		public ActionResult AddToCart([Bind(Prefix = "movieID")] int movieID)
 		{
 			var movie = db.Movies.SingleOrDefault(m => m.ID == movieID);
 
@@ -104,13 +104,11 @@ namespace MovieStore.Controllers
 				Session["CartItems"] = cartItems;
 			}
 
-			if (Ctr == null)
-				return RedirectToAction("Index", "Movie");
-			else
-				return RedirectToAction(Ctr, Act);
+			return RedirectToAction("Index", "Movie");
 		}
 
-		public ActionResult RemoveFromCart([Bind(Prefix = "movieID")] int movieID)
+		// TODO: Combine first two if statements if return statements still commented
+		public void RemoveFromCart([Bind(Prefix = "movieID")] int movieID)
 		{
 			if (Session.Count > 0 && Session["CartItems"] != null)
 			{
@@ -127,10 +125,10 @@ namespace MovieStore.Controllers
 
 					Session["CartItems"] = cartItems;
 				}
-				else return RedirectToAction("Index", "Movie");
+				//else return RedirectToAction("Index", "Movie");
 			}
 
-			return RedirectToAction("ViewCart", "Order");
+			//return RedirectToAction("ViewCart", "Order");
 		}
 	}
 }
