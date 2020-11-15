@@ -1,3 +1,4 @@
+using MovieStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace MovieStore.Controllers
 {
 	public class OrderController : Controller
 	{
+		private ApplicationDbContext db = new ApplicationDbContext();
 		// GET: Order
 		public ActionResult Index()
 		{
@@ -25,6 +27,69 @@ namespace MovieStore.Controllers
 		public ActionResult PlaceOrder()
 		{
 			Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
+
+			ViewBag.OrderMessage = "";
+			ViewBag.OrderStatus = false;
+
+			return View();
+		}
+
+		public ActionResult ConfirmOrder(string userId)
+		{
+			if (userId == null)
+			{
+				ViewBag.OrderMessage = "Something went wrong, cant find user";
+				ViewBag.OrderStatus = false;
+				return View();
+			}
+
+			ApplicationUser user = db.Users.Find(userId);
+			Customer customer = db.Customers
+				.Where(m => m.EmailAddress == user.Email).FirstOrDefault();
+			if (customer == null)
+			{
+				ViewBag.OrderMessage = "Something went wrong, cant find customer";
+				ViewBag.OrderStatus = false;
+				return View();
+			}
+
+			Order order = new Order()
+			{
+				OrderDate = DateTime.Now,
+				Customer = customer,
+				CustomerID = customer.ID,
+			};
+
+			db.Orders.Add(order);
+			db.SaveChanges();
+
+			order = db.Orders.OrderByDescending(m => m.ID).FirstOrDefault();
+
+			var cartItems = (List<CartViewModel>)Session["CartItems"];
+
+			foreach (var item in cartItems)
+			{
+				for (int i = 0; i < item.Amount; i++)
+				{
+					var orow = new OrderRow()
+					{
+						OrderID = order.ID,
+						MovieID = item.Movie.ID,
+						Price = item.Movie.Price
+					};
+
+					db.OrderRows.Add(orow);
+					db.SaveChanges();
+				}
+			}
+
+			// If you get here, the order should be done and confirmed
+			ViewBag.OrderMessage = "Order Confirmed!";
+			ViewBag.OrderStatus = true;
+
+			// Clear the cart
+			cartItems.Clear();
+			Session["CartItems"] = cartItems;
 
 			return View();
 		}

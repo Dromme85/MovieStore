@@ -1,6 +1,8 @@
 @using Microsoft.AspNet.Identity
 @model MovieStore.Models.Customer
 
+@if (Model != null)
+{
 <table class="table offset-md-0 offset-lg-2 col-md-12 col-lg-8">
 	<tr>
 		<td class="col-4 text-right font-weight-bold">Name</td>
@@ -49,6 +51,7 @@
 	</tr>
 	}
 </table>
+}
 
 <div class="offset-md-7 offset-3">
 	@Html.ActionLink("Change Delivery Details", "AddCustomerDetails", "Customer", new { userId = User.Identity.GetUserId() }, new { @class = "btn btn-warning mr-3" })

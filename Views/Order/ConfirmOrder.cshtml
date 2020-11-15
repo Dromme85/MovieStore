@@ -8,7 +8,8 @@
 	{
 		totalAmount += item.Movie.Price * item.Amount;
 	}
-	var uid = User.Identity.GetUserId(); }
+	var uid = User.Identity.GetUserId();
+}
 
 <br />
 <h2 class="offset-2 mt-5">@ViewBag.Title</h2>
@@ -35,7 +36,8 @@
 	<td>
 		<div class="text-nowrap">@(item.Movie.Price * item.Amount) kr</div>
 	</td>
-</tr>}
+</tr>
+}
 	<tr>
 		<td>Delivery to your door</td>
 		<td></td>
@@ -54,25 +56,24 @@
 	<h3>@ViewBag.OrderMessage</h3>
 
 	<div>Your order will be delivered shortly!</div>
-	
+
 	<div class="offset-6 col-6">
 		@Html.ActionLink("Order more movies!", "Index", "Movie", null, new { @class = "btn btn-primary float-right mr-3" })
-	</div>
+	</div> 
 }
 else
-{
+{ 
 	@* TODO: Check if there's a user logged in,
 	then check if that user have a matching customerId *@
-<h2 class="offset-2">Delivery Details</h2>
-	Html.RenderAction("CustomerDetailsPartial", "Customer", new { userid = uid });
-<hr />
-<div class="row">
-	<div class="offset-2 col-4">
-		<div class="text-danger">@ViewBag.OrderMessage</div>
+	<h2 class="offset-2">Delivery Details</h2> Html.RenderAction("CustomerDetailsPartial", "Customer", new { userid = uid });
+	<hr />
+	<div class="row">
+		<div class="offset-2 col-4">
+			<div class="text-danger">@ViewBag.OrderMessage</div>
+		</div>
+		<div class="col-4 text-right">
+			@Html.ActionLink("Continue Shopping", "Index", "Movie", null, new { @class = "btn btn-primary mr-3" })
+			@Html.ActionLink("Confirm Order", "PlaceOrder", "Order", new { userid = uid }, new { @class = "btn btn-success float-right" })
+		</div>
 	</div>
-	<div class="col-4 text-right">
-		@Html.ActionLink("Continue Shopping", "Index", "Movie", null, new { @class = "btn btn-primary mr-3" })
-		@Html.ActionLink("Confirm Order", "ConfirmOrder", "Order", new { userid = uid }, new { @class = "btn btn-success float-right" })
-	</div>
-</div>
 }
