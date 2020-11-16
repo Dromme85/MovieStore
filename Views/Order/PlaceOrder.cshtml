@@ -22,20 +22,23 @@
 	</tr>
 	@foreach (var item in cart)
 	{
-<tr>
-	<td>
-		@item.Movie.Title
-	</td>
-	<td>
-		<div class="text-nowrap">@Html.DisplayFor(movie => item.Movie.Price)</div>
-	</td>
-	<td class="text-right pr-5">
-		@item.Amount
-	</td>
-	<td>
-		<div class="text-nowrap">@(item.Movie.Price * item.Amount) kr</div>
-	</td>
-</tr>}
+	<tr>
+		<td>
+			@item.Movie.Title
+		</td>
+		<td>
+			<div class="text-nowrap">@Html.DisplayFor(movie => item.Movie.Price)</div>
+		</td>
+		<td class="text-right pr-5">
+			@item.Amount
+		</td>
+		<td>
+			<div class="text-nowrap">@(item.Movie.Price * item.Amount) kr</div>
+		</td>
+	</tr>
+	}
+	@if (cart != null)
+	{
 	<tr>
 		<td>Delivery to your door</td>
 		<td></td>
@@ -47,6 +50,7 @@
 		<td colspan="2" class="text-right pr-5 font-weight-bold">Total Amount</td>
 		<td class="font-weight-bold text-nowrap">@totalAmount kr</td>
 	</tr>
+	}
 </table>
 <hr />
 @if (ViewBag.OrderStatus)

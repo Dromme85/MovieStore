@@ -14,7 +14,18 @@ namespace MovieStore.Controllers
 		// GET: Order
 		public ActionResult Index()
 		{
-			return View();
+			List<OrderVM> ovm = new List<OrderVM>();
+
+			var orders = db.Orders.ToList();
+
+			foreach (var item in orders)
+			{
+				// TODO: Make list of orderrows and get them from orders.
+
+				ovm.Add(new OrderVM() { Order = item, OrderRows = null });
+			}
+
+			return View(ovm);
 		}
 
 		public ActionResult ViewCart()
@@ -36,6 +47,8 @@ namespace MovieStore.Controllers
 
 		public ActionResult ConfirmOrder(string userId)
 		{
+			Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
+
 			if (userId == null)
 			{
 				ViewBag.OrderMessage = "Something went wrong, cant find user";

@@ -1,0 +1,42 @@
+@model IEnumerable<MovieStore.Models.OrderVM>
+
+@{
+    ViewBag.Title = "Order List";
+}
+
+<br />
+<h2 class="mt-5">@ViewBag.Title</h2>
+
+<table class="table">
+	<tr>
+		<th>ID</th>
+		<th>Date</th>
+		<th>Customer</th>
+	</tr>
+	@foreach (var item in Model)
+	{
+	<tr>
+		<td>@item.Order.ID</td>
+		<td>@item.Order.OrderDate</td>
+		<td>@item.Order.Customer.FirstName @item.Order.Customer.LastName</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<table>
+				<tr>
+					<th>Movie Title</th>
+					<th>Price</th>
+				</tr>
+				@foreach (var mov in item.OrderRows)
+				{
+					<tr>
+						<td>@mov.Movie.Title</td>
+						<td>@mov.Price</td>
+					</tr>
+				}
+			</table>
+		</td>
+	</tr>
+	}
+</table>
