@@ -20,9 +20,17 @@ namespace MovieStore.Controllers
 
 			foreach (var item in orders)
 			{
-				// TODO: Make list of orderrows and get them from orders.
+				item.Customer = db.Customers.Find(item.CustomerID);
 
-				ovm.Add(new OrderVM() { Order = item, OrderRows = null });
+				// TODO: Make list of orderrows and get them from orders.
+				var orl = db.OrderRows.Where(m => m.OrderID == item.ID).ToList();
+
+				foreach (var or in orl)
+				{
+					or.Movie = db.Movies.Find(or.MovieID);
+				}
+
+				ovm.Add(new OrderVM() { Order = item, OrderRows = orl });
 			}
 
 			return View(ovm);
