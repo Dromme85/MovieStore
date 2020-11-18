@@ -1,7 +1,10 @@
 @model MovieStore.Models.Customer
 
+@using Microsoft.AspNet.Identity
+
 @{
 	ViewBag.Title = "Add Customer Details";
+	var uemail = User.Identity.Name;
 }
 
 <br />
@@ -34,7 +37,7 @@
 			<div class="form-group row">
 				@Html.LabelFor(model => model.EmailAddress, new { @class = "col-md-2 col-form-label text-right" })
 				<div class="col-md-10">
-					@Html.EditorFor(model => model.EmailAddress, "", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.EditorFor(model => model.EmailAddress, "", new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.UserEmail, @readonly = "readonly" } })
 					@Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
 				</div>
 			</div>

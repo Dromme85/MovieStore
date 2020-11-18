@@ -25,9 +25,11 @@ namespace MovieStore.Controllers
 			ApplicationUser user = db.Users.Find(userId);
 			Customer customer = db.Customers
 				.Where(m => m.EmailAddress == user.Email).FirstOrDefault();
+			ViewBag.UserEmail = user.Email;
 			if (customer == null)
 				// If theres no user with that email address, create new
 				return View();
+
 
 			return View(customer);
 		}

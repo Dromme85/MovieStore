@@ -16,8 +16,20 @@ namespace MovieStore.Controllers
 			Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
 			List<List<Movie>> movieLists = new List<List<Movie>>();
 
-			// TODO: Make list of most popular movies by number of appearances in orderrows.
 			var moviesPop = db.Movies.ToList();
+			var popList = new List<CartViewModel>();
+			foreach (var mov in moviesPop)
+			{
+				popList.Add(new CartViewModel(0, mov));
+			}
+
+			var orderRows = db.OrderRows.ToList();
+			foreach (var or in orderRows)
+			{
+				var movie = popList.Where(m => m.Movie.ID == or.MovieID).First();
+				movie.Amount++;
+			}
+			moviesPop = popList.OrderByDescending(m => m.Amount).Select(m => m.Movie).ToList();
 			movieLists.Add(moviesPop);
 
 			var newestMovies = db.Movies.OrderByDescending(m => m.ReleaseYear).Take(5).ToList();

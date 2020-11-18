@@ -67,16 +67,38 @@ else
 {
 	@* TODO: Check if there's a user logged in,
 	then check if that user have a matching customerId *@
-<h2 class="offset-2">Delivery Details</h2>
-	Html.RenderAction("CustomerDetailsPartial", "Customer", new { userid = uid });
-<hr />
-<div class="row">
-	<div class="offset-2 col-4">
-		<div class="text-danger">@ViewBag.OrderMessage</div>
-	</div>
-	<div class="col-4 text-right">
-		@Html.ActionLink("Continue Shopping", "Index", "Movie", null, new { @class = "btn btn-primary mr-3" })
-		@Html.ActionLink("Confirm Order", "ConfirmOrder", "Order", new { userid = uid }, new { @class = "btn btn-success float-right" })
-	</div>
-</div>
+	if (Request.IsAuthenticated)
+	{
+		<h2 class="offset-2">Customer Details</h2>
+		Html.RenderAction("CustomerDetailsPartial", "Customer", new { userid = uid });
+		<hr />
+		<div class="row">
+			<div class="offset-2 col-4">
+				<div class="text-danger">@ViewBag.OrderMessage</div>
+			</div>
+			<div class="col-4 text-right">
+				@Html.ActionLink("Continue Shopping", "Index", "Movie", null, new { @class = "btn btn-primary mr-3" })
+				@Html.ActionLink("Confirm Order", "ConfirmOrder", "Order", new { userid = uid }, new { @class = "btn btn-success float-right" })
+			</div>
+		</div>
+	}
+	else
+	{
+		<h2 class="offset-2">Customer Details</h2>
+		<div class="offset-2">
+			Not logged in.
+			<a href="/Account/Register" id="registerLink" class="btn btn-primary">Register</a>
+			<a href="/Account/Login" id="loginLink" class="btn btn-primary">Log in</a>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="offset-2 col-4">
+				<div class="text-danger">@ViewBag.OrderMessage</div>
+			</div>
+			<div class="col-4 text-right">
+				@Html.ActionLink("Continue Shopping", "Index", "Movie", null, new { @class = "btn btn-primary mr-3" })
+				@Html.ActionLink("Confirm Order", "ConfirmOrder", "Order", new { userid = uid }, new { @class = "btn btn-success float-right disabled" })
+			</div>
+		</div>
+	}
 }
