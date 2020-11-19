@@ -1,3 +1,4 @@
+using Microsoft.AspNet.Identity;
 using MovieStore.Models;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,19 @@ namespace MovieStore.Controllers
 		// GET: Order
 		public ActionResult Index()
 		{
-			List<OrderVM> ovm = new List<OrderVM>();
+			Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
 
-			var orders = db.Orders.ToList();
+			List<OrderVM> ovm = new List<OrderVM>();
+			List<Order> orders = new List<Order>();
+
+			if (User.Identity.IsAuthenticated)
+			{
+				string uEmail = db.Users.Find(User.Identity.GetUserId()).Email;
+				orders = db.Orders
+					.Where(o => o.Customer.EmailAddress == uEmail).ToList();
+			}
+			// if no user is logged in, just fetch all orders
+			else orders = db.Orders.ToList();
 
 			foreach (var item in orders)
 			{

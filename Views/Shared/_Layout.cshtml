@@ -1,3 +1,7 @@
+@{ 
+	var cont = ViewContext.RouteData.Values["Controller"].ToString();
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,21 +20,21 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<a href="@Url.Action("Index", "Home")" class="navbar-brand">
-				<span class="fas fa-film"></span> Cool Movie Store Name
+				<span class="fas fa-film" style="font-size:1.6em; vertical-align:bottom;"></span> Cool Movie Store Name
 			</a>
 
 			<div class="vl d-none d-lg-block d-xl-block"></div>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="nan navbar-nav mr-auto">
-					<li class="nav-item active">
+					<li class="nav-item @(cont == "Home" ? "active" : "")">
 						<a>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item @(cont == "Movie" ? "active" : "")">
 						<a>@Html.ActionLink("Movies", "Index", "Movie", null, new { @class = "nav-link" })</a>
 					</li>
-					<li class="nav-item">
+					@*<li class="nav-item">
 						<a>@Html.ActionLink("Orders", "Index", "Order", null, new { @class = "nav-link" })</a>
-					</li>
+					</li>*@
 				</ul>
 				@Html.Partial("_CartPartial")
 				<div class="vl d-none d-lg-block d-xl-block"></div>

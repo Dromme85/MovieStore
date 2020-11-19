@@ -42,7 +42,7 @@
 <ul class="nav navbar-nav navbar-right mr-0">
 	<li class="nav-item dropdown">
 		<a href=@Url.Action("Index", "Home") class="nav-link dropdown-toggle active" data-toggle="dropdown">
-			<span class="fas fa-shopping-cart"></span> Shopping Cart (@numItems)
+			<span class="fas fa-shopping-cart"></span> Shopping Cart <div class="d-inline-block rounded-circle bg-white text-center text-dark" style="width:1.6em; height:1.6em">@numItems</div>
 		</a>
 		<div class="dropdown-menu dropdown-menu-right">
 			@if (cart != null)
@@ -74,6 +74,7 @@
 				}
 				else
 				{
+					// TODO: Is it possible to get here?
 					<div class="dropdown-item">Cart is empty</div>
 				}
 			}

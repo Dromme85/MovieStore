@@ -365,6 +365,7 @@
     <Content Include="Views\Customer\CustomerDetailsPartial.cshtml" />
     <Content Include="Views\Order\ConfirmOrder.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Shared\_OrderPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

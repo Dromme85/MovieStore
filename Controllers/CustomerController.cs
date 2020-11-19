@@ -46,6 +46,7 @@ namespace MovieStore.Controllers
 					db.Customers.Add(customer);
 				else
 					db.Entry(customer).State = EntityState.Modified;
+
 				db.SaveChanges();
 				// TODO: Change redirect to view customer details?
 				return RedirectToAction("Index", "Home");

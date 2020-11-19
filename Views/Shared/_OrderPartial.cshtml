@@ -1,0 +1,42 @@
+@model MovieStore.Models.OrderVM
+
+@{ 
+	decimal Delivery = 49.90m; // Maybe get this from a global variable
+	decimal Total = Delivery;
+	foreach (var item in Model.OrderRows)
+	{
+		Total += item.Price;
+	}
+}
+
+<tr class="bg-warning">
+	<td class="border-right">@Model.Order.ID</td>
+	<td class="border-right">@Html.DisplayFor(model => model.Order.OrderDate)</td>
+	<td>@Model.Order.Customer.FirstName @Model.Order.Customer.LastName</td>
+</tr>
+<tr>
+	<td></td>
+	<td colspan="2" class="mb-0 p-0 pb-2">
+		<table class="mt-0 table-striped table-borderless">
+			<tr class="bg-info">
+				<th class="col-10 border-top-0">Movie Title</th>
+				<th class="col-2 border-top-0">Price</th>
+			</tr>
+			@foreach (var mov in Model.OrderRows)
+			{
+				<tr>
+					<td>@mov.Movie.Title</td>
+					<td>@Html.DisplayFor(model => mov.Price)</td>
+				</tr>
+			}
+			<tr>
+				<td class="font-weight-light">Delivery fee</td>
+				<td class="font-weight-light">@Delivery.ToString("c")</td>
+			</tr>
+			<tr class="bg-info">
+				<td class="text-right font-weight-bold">Total Order Cost</td>
+				<td class="font-weight-bold">@Total.ToString("c")</td>
+			</tr>
+		</table>
+	</td>
+</tr>
