@@ -5,8 +5,8 @@
 {
 <table class="table offset-md-0 offset-lg-2 col-md-12 col-lg-8">
 	<tr>
-		<td class="col-4 text-right font-weight-bold">Name</td>
-		<td class="col-8">@Model.FirstName @Model.LastName</td>
+		<td class="w-50 text-right font-weight-bold">Name</td>
+		<td class="">@Model.FirstName @Model.LastName</td>
 	</tr>
 	<tr>
 		<td class="text-right font-weight-bold">Email</td>
@@ -33,7 +33,7 @@
 	@if (Model.BillingAddress != Model.DeliveryAddress)
 	{
 	<tr>
-		<td colspan="2" class="font-weight-bold">Delivery Address</td>
+		<td colspan="2" class="font-weight-bold bg-light">Delivery Address</td>
 	</tr>
 	<tr>
 		<td class="text-right font-weight-bold">Delivery Address</td>

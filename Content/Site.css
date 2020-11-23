@@ -1,4 +1,4 @@
-﻿body {
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -29,3 +29,6 @@ textarea {
     margin-left: 3px;
     position: static;
 }
+
+.w-8 { width: 8.333%; }
+.w-16 { width: 16.667%; }

@@ -17,24 +17,30 @@
 <tr>
 	<td></td>
 	<td colspan="2" class="mb-0 p-0 pb-2">
-		<table class="mt-0 table-striped table-borderless">
+		<table class="mt-0 table-striped table-borderless w-75">
 			<tr class="bg-info">
-				<th class="col-10 border-top-0">Movie Title</th>
-				<th class="col-2 border-top-0">Price</th>
+				<th class="w-50 border-top-0">Movie Title</th>
+				<th class="border-top-0">Price</th>
+				<th class="w-8 border-top-0">Amount</th>
+				<th class="border-top-0">Sub Total</th>
 			</tr>
 			@foreach (var mov in Model.OrderRows)
 			{
+				// TODO: add movie amount and sub price
 				<tr>
 					<td>@mov.Movie.Title</td>
+					<td>@Html.DisplayFor(model => mov.Price)</td>
+					<td class="text-center">1</td>
 					<td>@Html.DisplayFor(model => mov.Price)</td>
 				</tr>
 			}
 			<tr>
-				<td class="font-weight-light">Delivery fee</td>
+				<td colspan="3" class="font-weight-light">Delivery fee</td>
 				<td class="font-weight-light">@Delivery.ToString("c")</td>
 			</tr>
 			<tr class="bg-info">
-				<td class="text-right font-weight-bold">Total Order Cost</td>
+				<td></td>
+				<td colspan="2" class="text-right font-weight-bold">Total Order Cost</td>
 				<td class="font-weight-bold">@Total.ToString("c")</td>
 			</tr>
 		</table>

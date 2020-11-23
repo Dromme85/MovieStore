@@ -29,18 +29,22 @@ namespace MovieStore.Controllers
 			// if no user is logged in, just fetch all orders
 			else orders = db.Orders.ToList();
 
-			foreach (var item in orders)
+
+			if (orders != null)
 			{
-				item.Customer = db.Customers.Find(item.CustomerID);
-
-				var orl = db.OrderRows.Where(m => m.OrderID == item.ID).ToList();
-
-				foreach (var or in orl)
+				foreach (var item in orders)
 				{
-					or.Movie = db.Movies.Find(or.MovieID);
-				}
+					item.Customer = db.Customers.Find(item.CustomerID);
 
-				ovm.Add(new OrderVM() { Order = item, OrderRows = orl });
+					var orl = db.OrderRows.Where(m => m.OrderID == item.ID).ToList();
+
+					foreach (var or in orl)
+					{
+						or.Movie = db.Movies.Find(or.MovieID);
+					}
+
+					ovm.Add(new OrderVM() { Order = item, OrderRows = orl });
+				}
 			}
 
 			return View(ovm);

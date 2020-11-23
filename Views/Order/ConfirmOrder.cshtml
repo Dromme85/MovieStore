@@ -14,42 +14,45 @@
 <br />
 <h2 class="offset-2 mt-5">@ViewBag.Title</h2>
 
-<table class="table offset-md-0 offset-lg-2 col-md-12 col-lg-8">
-	<tr>
-		<th class="col-7">Title</th>
-		<th class="col-2">Price</th>
-		<th class="col-1 text-right pr-5">Amount</th>
-		<th class="col-2">Total</th>
-	</tr>
-	@foreach (var item in cart)
-	{
-<tr>
-	<td>
-		@item.Movie.Title
-	</td>
-	<td>
-		<div class="text-nowrap">@Html.DisplayFor(movie => item.Movie.Price)</div>
-	</td>
-	<td class="text-right pr-5">
-		@item.Amount
-	</td>
-	<td>
-		<div class="text-nowrap">@(item.Movie.Price * item.Amount) kr</div>
-	</td>
-</tr>
+@if (cart.Count() > 0)
+{
+	<table class="table offset-md-0 offset-lg-2 col-md-12 col-lg-8">
+		<tr>
+			<th class="col-7">Title</th>
+			<th class="col-2">Price</th>
+			<th class="col-1 text-right pr-5">Amount</th>
+			<th class="col-2">Total</th>
+		</tr>
+		@foreach (var item in cart)
+		{
+			<tr>
+				<td>
+					@item.Movie.Title
+				</td>
+				<td>
+					<div class="text-nowrap">@Html.DisplayFor(movie => item.Movie.Price)</div>
+				</td>
+				<td class="text-right pr-5">
+					@item.Amount
+				</td>
+				<td>
+					<div class="text-nowrap">@(item.Movie.Price * item.Amount) kr</div>
+				</td>
+			</tr>
+		}
+		<tr>
+			<td>Delivery to your door</td>
+			<td></td>
+			<td class="text-right pr-5">1</td>
+			<td>49,90 kr</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2" class="text-right pr-5 font-weight-bold">Total Amount</td>
+			<td class="font-weight-bold text-nowrap">@totalAmount kr</td>
+		</tr>
+	</table>
 }
-	<tr>
-		<td>Delivery to your door</td>
-		<td></td>
-		<td class="text-right pr-5">1</td>
-		<td>49,90 kr</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td colspan="2" class="text-right pr-5 font-weight-bold">Total Amount</td>
-		<td class="font-weight-bold text-nowrap">@totalAmount kr</td>
-	</tr>
-</table>
 <hr />
 @if (ViewBag.OrderStatus)
 {
@@ -59,12 +62,12 @@
 
 	<div class="offset-6 col-6">
 		@Html.ActionLink("Order more movies!", "Index", "Movie", null, new { @class = "btn btn-primary float-right mr-3" })
-	</div> 
+	</div>
 }
 else
-{ 
+{
 	@* TODO: Check if there's a user logged in,
-	then check if that user have a matching customerId *@
+		then check if that user have a matching customerId *@
 	<h2 class="offset-2">Delivery Details</h2> Html.RenderAction("CustomerDetailsPartial", "Customer", new { userid = uid });
 	<hr />
 	<div class="row">

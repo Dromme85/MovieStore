@@ -29,16 +29,16 @@ namespace MovieStore.Controllers
 				var movie = popList.Where(m => m.Movie.ID == or.MovieID).First();
 				movie.Amount++;
 			}
-			moviesPop = popList.OrderByDescending(m => m.Amount).Select(m => m.Movie).ToList();
+			moviesPop = popList.OrderByDescending(m => m.Amount).Select(m => m.Movie).Take(6).ToList();
 			movieLists.Add(moviesPop);
 
-			var newestMovies = db.Movies.OrderByDescending(m => m.ReleaseYear).Take(5).ToList();
+			var newestMovies = db.Movies.OrderByDescending(m => m.ReleaseYear).Take(6).ToList();
 			movieLists.Add(newestMovies);
 
-			var oldestMovies = db.Movies.OrderBy(m => m.ReleaseYear).Take(5).ToList();
+			var oldestMovies = db.Movies.OrderBy(m => m.ReleaseYear).Take(6).ToList();
 			movieLists.Add(oldestMovies);
 
-			var cheapestMovies = db.Movies.OrderBy(m => m.Price).Take(5).ToList();
+			var cheapestMovies = db.Movies.OrderBy(m => m.Price).Take(6).ToList();
 			movieLists.Add(cheapestMovies);
 
 			return View(movieLists);

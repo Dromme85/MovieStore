@@ -4,15 +4,15 @@
 	ViewBag.Title = "Order History for ";
 }
 
-@if (Model != null)
+@if (Model.Count() > 0 && Model != null)
 {
 <div class="jumbotron">
 	<h2 class="">@ViewBag.Title @Model.First().Order.Customer.FirstName @Model.First().Order.Customer.LastName</h2>
-
+	<p>You have made @Model.Count() order(s)</p>
 	<table class="table table-borderless shadow bg-white">
 		<tr class="bg-info">
-			<th class="col-1 border-right">Order ID</th>
-			<th class="col-2 border-right">Date</th>
+			<th class="w-8 border-right">Order ID</th>
+			<th class="w-25 border-right">Date</th>
 			<th class="">Customer</th>
 		</tr>
 		@foreach (var item in Model)
@@ -26,6 +26,6 @@ else
 {
 	<div>
 		<br />
-		<h2 class="mt-5">No user logged in.</h2>
+		<h2 class="mt-5">No orders made.</h2>
 	</div>
 }
