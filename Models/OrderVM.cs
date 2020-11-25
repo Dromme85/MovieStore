@@ -10,4 +10,10 @@ namespace MovieStore.Models
 		public Order Order { get; set; }
 		public List<OrderRow> OrderRows { get; set; }
 	}
+
+	public class OrderSumVM
+	{
+		public Customer Customer { get; set; }
+		public decimal Total { get; set; }
+	}
 }

@@ -1,6 +1,10 @@
 @model IEnumerable< IEnumerable < MovieStore.Models.Movie>>
+@using MovieStore.Models
+
 @{
 	ViewBag.Title = "Start Page";
+	var best = (OrderSumVM)ViewBag.BestCust;
+	var total = best.Total + 49.90m;
 }
 <br />
 <div class="jumbotron">
@@ -51,6 +55,6 @@
 	<h2>Best Customer!</h2>
 	<div class="container">
 		@* TODO: Implement me! *@
-		Not Yet Implemented! :(
+		<b>@best.Customer.FirstName @best.Customer.LastName</b> have the most expensive order with <b>@total.ToString("c")</b>
 	</div>
 </div>
