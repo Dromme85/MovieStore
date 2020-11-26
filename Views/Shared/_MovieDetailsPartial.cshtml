@@ -1,19 +1,5 @@
 @model MovieStore.Models.Movie
 
-<script>
-	function addMovie(movieid) {
-		$.ajax({
-			url: "/Movie/AddToCart",
-			data: { MovieID: movieid },
-			success: function () {
-				$(document.body).load(location.href, function () {
-					// Toggle the dropdowns or they will stop working
-					$('.dropdown-toggle').dropdown();
-				});
-			}
-		});
-	}
-</script>
 <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 mt-4">
 	<div class="card shadow" style="background-color: azure">
 		<div class="card-header p-2" style="background-color:palegreen">
