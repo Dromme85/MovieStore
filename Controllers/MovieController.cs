@@ -15,11 +15,24 @@ namespace MovieStore.Controllers
 		private ApplicationDbContext db = new ApplicationDbContext();
 		List<CartViewModel> cartItems = new List<CartViewModel>();
 		// GET: Movie
-		public ActionResult Index()
+		public ActionResult Index(int? page, int? length)
 		{
 			Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sv-SE");
+
+			var movies = db.Movies.ToList();
+
+			if (length == null) length = 6;
+			if (page == null) page = 0;
+
+			if (movies.Count < length * page) page--;
+
+			ViewBag.Length = length;
+			ViewBag.Page = page;
+			ViewBag.MaxPage = (movies.Count / length) - (movies.Count % length == 0 ? 1 : 0);
+
+			movies = movies.Skip((int)(page * length)).Take((int)length).ToList();
 			
-			return View(db.Movies.ToList());
+			return View(movies);
 		}
 
 		public ActionResult Details(int? movieid)

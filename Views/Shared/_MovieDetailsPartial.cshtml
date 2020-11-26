@@ -14,26 +14,20 @@
 		});
 	}
 </script>
-<div class="offset-sm-0 col-sm-12 offset-md-2 col-md-8 offset-lg-0 col-lg-6 offset-xl-0 col-xl-4 mt-4">
-	<div class="card shadow pb-2" style="background-color: azure">
-		<h4 class="text-center p-2 rounded-top" style="background-color:palegreen">@Html.DisplayFor(model => model.Title)</h4>
+<div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 mt-4">
+	<div class="card shadow" style="background-color: azure">
+		<div class="card-header p-2" style="background-color:palegreen">
+			<h4 class="text-center text-truncate">@Html.DisplayFor(model => model.Title)</h4>
+		</div>
 		<div class="row mr-0">
 			<div class="col-3 p-1">
 			@if (Model.ImageURL != "")
 			{
-				<img src=@Html.DisplayFor(model => model.ImageURL) alt="Movie Poster" class="img-fluid rounded shadow" />
+				<img src=@Html.DisplayFor(model => model.ImageURL) alt="Movie Poster" class="img-fluid rounded shadow mt-2 mb-2" />
 
 			}
 			</div>
-			<div class="col-9">
-				<dl class="row m-0">
-					<dt class="col-5 text-right">
-						@Html.DisplayNameFor(model => model.Director)
-					</dt>
-					<dd class="col-7 text-left">
-						@Html.DisplayFor(model => model.Director)
-					</dd>
-				</dl>
+			<div class="card-body d-flex flex-column p-3">
 				<dl class="row m-0">
 					<dt class="col-5 text-right text-nowrap">
 						@Html.DisplayNameFor(model => model.ReleaseYear)
@@ -50,9 +44,10 @@
 						@Html.DisplayFor(model => model.Price)
 					</dd>
 				</dl>
-				<a href="#" onclick="addMovie(@Model.ID)" class="btn btn-success float-right m-1">Add to Cart</a>
-				@*@Html.ActionLink("Add to Cart", "AddToCart", "Movie", new { MovieId = Model.ID }, new { @class = "btn btn-success float-right m-1" })*@
-				@Html.ActionLink("Details", "Details", "Movie", new { MovieId = Model.ID }, new { @class = "btn btn-primary float-right m-1" })
+				<div class="mt-auto d-inline-flex">
+					@Html.ActionLink("Details", "Details", "Movie", new { MovieId = Model.ID }, new { @class = "btn btn-primary mt-auto ml-auto mr-0", @style = "border-radius: 0.5rem 0 0 0.5rem;" })
+					<button onclick="addMovie(@Model.ID)" class="btn btn-success mt-auto ml-0 mr-3" style="border-radius: 0 0.5rem 0.5rem 0;">Add to Cart</button>
+				</div>
 			</div>
 		</div>
 	</div>

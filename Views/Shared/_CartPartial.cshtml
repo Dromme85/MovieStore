@@ -52,14 +52,14 @@
 					<table class="dropdown-item">
 						<tr class="row" style="width: 400px !important;">
 							<td class="col-9">@item.Movie.Title, @item.Movie.Price</td>
-							<td class="col-3 text-right">
-								<a href="#" onclick="removeMovie(@item.Movie.ID)" data-toggle="dropdown">
+							<td class="col-3 text-right d-inline-flex">
+								<div onclick="removeMovie(@item.Movie.ID)" data-toggle="dropdown">
 									<i class="fas fa-minus-circle text-danger"></i>
-								</a>
-								@item.Amount
-								<a href="#" onclick="addMovie(@item.Movie.ID)">
+								</div>
+								<div>&nbsp;@item.Amount&nbsp;</div>
+								<div onclick="addMovie(@item.Movie.ID)">
 									<i class="fas fa-plus-circle text-success"></i>
-								</a>
+								</div>
 							</td>
 						</tr>
 					</table>

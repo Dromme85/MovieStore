@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MovieStore.Models.Movie>
+@model IEnumerable<MovieStore.Models.Movie>
 
 @{
 	ViewBag.Title = "Movies";
@@ -7,13 +7,59 @@
 <br />
 <div class="jumbotron">
 	<h2>Movies</h2>
-	<div class="container-fluid">
-		<div class="row">
+	<div class="container-fluid p-0">
+		<div class="row offset-md-0 offset-lg-1 offset-xl-0">
 			@foreach (var movie in Model)
 			{
 				@Html.Partial("_MovieDetailsPartial", movie)
 			}
 		</div>
+	</div>
+	<hr class="m-4" />
+	<div class="text-center">
+		<div class="mb-1">Viewing movie @((ViewBag.Page) * ViewBag.Length + 1)-@((ViewBag.Page) * ViewBag.Length + Model.Count())</div>
+		@if (ViewBag.Page > 0)
+		{
+			if (ViewBag.Length == 6)
+			{
+			<a href="@Url.Action("Index", new { page = ViewBag.Page - 1 })" class="btn btn-primary">
+				 <i class="fas fa-angle-double-left"></i> Prev
+			</a>
+			}
+			else
+			{
+			<a href="@Url.Action("Index", new { page = ViewBag.Page - 1, length = ViewBag.Length })" class="btn btn-primary">
+				 <i class="fas fa-angle-double-left"></i> Prev
+			</a>
+			}
+		}
+		else
+		{
+			<a class="btn btn-primary disabled">
+				<i class="fas fa-angle-double-left"></i> Prev
+			</a>
+		}
+		@if (ViewBag.Page < ViewBag.MaxPage)
+		{
+			if (ViewBag.Length == 6)
+			{
+			<a href="@Url.Action("Index", new { page = ViewBag.Page + 1 })" class="btn btn-primary">
+				Next <i class="fas fa-angle-double-right"></i>
+			</a>
+			}
+			else
+			{
+			<a href="@Url.Action("Index", new { page = ViewBag.Page + 1, length = ViewBag.Length })" class="btn btn-primary">
+				Next <i class="fas fa-angle-double-right"></i>
+			</a>
+			}
+		}
+		else
+		{
+			<a class="btn btn-primary disabled">
+				Next <i class="fas fa-angle-double-right"></i>
+			</a>
+		}
 	</div>
 </div>
 
