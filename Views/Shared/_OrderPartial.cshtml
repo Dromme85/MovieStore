@@ -1,11 +1,16 @@
 @model MovieStore.Models.OrderVM
+@using MovieStore.Models
 
 @{ 
 	decimal Delivery = 49.90m; // Maybe get this from a global variable
 	decimal Total = Delivery;
+	List<CartViewModel> movieAmount = new List<CartViewModel>();
 	foreach (var item in Model.OrderRows)
 	{
 		Total += item.Price;
+		int i = movieAmount.FindIndex(m => m.Movie.ID == item.MovieID);
+		if (i != -1) { movieAmount[i].Amount++; }
+		else { movieAmount.Add(new CartViewModel(1, item.Movie)); }
 	}
 }
 
@@ -24,15 +29,15 @@
 				<th class="w-8 border-top-0">Amount</th>
 				<th class="border-top-0">Sub Total</th>
 			</tr>
-			@foreach (var mov in Model.OrderRows)
+			@foreach (var mov in movieAmount)
 			{
-				// TODO: add movie amount and sub price
 				<tr>
 					<td>@mov.Movie.Title</td>
-					<td>@Html.DisplayFor(model => mov.Price)</td>
-					<td class="text-center">1</td>
-					<td>@Html.DisplayFor(model => mov.Price)</td>
-				</tr>
+					<td>@mov.Movie.Price.ToString("c")</td>
+					<td class="text-center">@mov.Amount</td>
+					<td>@(mov.Movie.Price * mov.Amount) kr</td>
+  
+				  </tr>
 			}
 			<tr>
 				<td colspan="3" class="font-weight-light">Delivery fee</td>

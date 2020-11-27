@@ -19,6 +19,8 @@ namespace MovieStore.Controllers
 
 		public ActionResult AddCustomerDetails(string userId)
 		{
+			ViewBag.PreviousURL = Request.UrlReferrer;
+
 			if (userId == null)
 				return View();
 
@@ -30,7 +32,6 @@ namespace MovieStore.Controllers
 				// If theres no user with that email address, create new
 				return View();
 
-
 			return View(customer);
 		}
 
@@ -38,7 +39,7 @@ namespace MovieStore.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult AddCustomerDetails([Bind(
 			Include = "ID,FirstName,LastName,BillingAddress,BillingZip,BillingCity," +
-			"DeliveryAddress,DeliveryZip,DeliveryCity,EmailAddress,PhoneNo")] Customer customer )
+			"DeliveryAddress,DeliveryZip,DeliveryCity,EmailAddress,PhoneNo")] Customer customer, Uri previousUrl )
 		{
 			if (ModelState.IsValid)
 			{
@@ -48,8 +49,9 @@ namespace MovieStore.Controllers
 					db.Entry(customer).State = EntityState.Modified;
 
 				db.SaveChanges();
+
 				// TODO: Change redirect to view customer details?
-				return RedirectToAction("Index", "Home");
+				return Redirect(previousUrl.ToString());
 			}
 
 			return View(customer);
